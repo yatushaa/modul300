@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+config.vm.define "ftp" do |ftp|
+    ftp.vm.box = "ubuntu/trusty64"
+    ftp.vm.hostname = "ftp01"
+	ftp.vm.network "forwarded_port", guest:21, host:2121, auto_correct: true
+	ftp.vm.provider "virtualbox" do |vb|
+	  vb.memory = "512"  
+	end  
+   
+ftp.vm.provision "shell", inline: <<-SHELL
+	sudo apt-get update
+	sudo apt-get install vsftpd
+SHELL
+end
+end
