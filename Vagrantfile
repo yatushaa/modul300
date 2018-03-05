@@ -14,6 +14,7 @@ config.vm.define "ftp" do |ftp|
 ftp.vm.provision "shell", inline: <<-SHELL
 	sudo apt-get update
 	sudo apt-get install vsftpd
+	sudo sed -i -e 's/anonymous_enable=NO/anonymous_enable=YES/' /etc/vsftpd.conf
 SHELL
 end
 end
